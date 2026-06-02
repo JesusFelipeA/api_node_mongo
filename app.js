@@ -4,10 +4,12 @@ import mongoose from "mongoose";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./swagger.js";
 import userRoutes from "./routes/user.js";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI).then(() => 
     console.log("Conexión a la base de datos establecida"))

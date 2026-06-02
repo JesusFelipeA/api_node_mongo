@@ -13,31 +13,19 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:5000",
-        description: "Servidor de desarrollo",
+        url: "http://localhost:5000"
       },
     ],
     components: {
       schemas: {
         User: {
           type: "object",
-          required: ["nombre", "email", "password"],
+          required: ["name"],
           properties: {
-            _id: {
-              type: "string",
-              description: "ID único del usuario",
-            },
-            nombre: {
+            name: {
               type: "string",
               description: "Nombre del usuario",
-            },
-            email: {
-              type: "string",
-              description: "Email del usuario",
-            },
-            password: {
-              type: "string",
-              description: "Contraseña del usuario",
+              example: "Jesus Felipe",
             },
           },
         },
@@ -46,6 +34,7 @@ const options = {
           properties: {
             message: {
               type: "string",
+              example: "Error interno del servidor",
             },
           },
         },
