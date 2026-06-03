@@ -6,7 +6,7 @@ const options = {
     info: {
       title: "Node API",
       version: "1.0.0",
-      description: "API 2 - Documentación con Swagger",
+      description: "API con EXPRESS - Documentación con Swagger",
       contact: {
         name: "Jesus Felipe Aviles",
       },
@@ -41,7 +41,7 @@ const options = {
       },
     },
   },
-  apis: ["./routes/*.js"],
+  apis: ["../routes/*.js"],
 };
 
 export const specs = swaggerJsdoc(options);
