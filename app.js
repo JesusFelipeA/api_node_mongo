@@ -2,16 +2,16 @@ import express from "express";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import { specs } from "./config/swagger.js";
+import connectMongoDB from "./config/databases.js";
 import userRoutes from "./routes/user.js";
 import cors from "cors";
-import connectToMongoDB from "./config/databases.js";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
 
-await connectToMongoDB();
+connectMongoDB();
 
 app.use(express.json());
 
