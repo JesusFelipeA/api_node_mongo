@@ -22,9 +22,10 @@ import User from "../models/User.js";
 
 export const crearUsuario = async (req, res) => {
     try {
-        const { name } = req.body;
-        const newUser = new User({ name });
+        const newUser = new User(req.body);
+
         await newUser.save();
+
         res.status(201).json({
             message: "Usuario creado",
             data: newUser
