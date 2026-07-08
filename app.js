@@ -10,9 +10,6 @@ dotenv.config();
 
 const app = express();
 app.use(cors());
-
-connectMongoDB();
-
 app.use(express.json());
 
 // Swagger
@@ -26,6 +23,17 @@ app.get("/api", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectMongoDB();
+
+    app.listen(PORT, () => {
+      console.log(`Servidor escuchando en el puerto ${PORT}`);
+    });
+  } catch (error) {
+    console.error("No se pudo iniciar el servidor:", error.message);
+    process.exit(1);
+  }
+};
+
+startServer();

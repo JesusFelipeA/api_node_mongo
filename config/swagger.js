@@ -20,7 +20,7 @@ const options = {
       schemas: {
         User: {
           type: "object",
-          required: ["name", "email"],
+          required: ["name", "email", "password"],
           properties: {
             _id: {
               type: "string",
@@ -37,6 +37,13 @@ const options = {
               format: "email",
               description: "Correo electrónico",
               example: "jesus@gmail.com"
+            },
+            password: {
+              type: "string",
+              format: "password",
+              writeOnly: true,
+              description: "Contraseña del usuario",
+              example: "123456"
             },
             age: {
               type: "integer",

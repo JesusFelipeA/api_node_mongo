@@ -1,19 +1,19 @@
-/*import express from 'express';
-const route = express.Router();
-import { createUser } from '../controllers/userController.js';
-
-route.post('/', createUser);
-
-export default route;
-*/
 import express from "express";
-import { crearUsuario, obtenerUsuarios } from "../controllers/userController.js";
+import auth from "../middleware/auth.js";
+import {
+  actualizarUsuario,
+  crearUsuario,
+  eliminarUsuario,
+  login,
+  obtenerUsuarioPorId,
+  obtenerUsuarios,
+} from "../controllers/userController.js";
 
 const route = express.Router();
 
 /**
  * @swagger
- * /usuarios:
+ * /usuarios/register:
  *   post:
  *     summary: Crear un nuevo usuario
  *     description: Crea un nuevo usuario en la base de datos
@@ -28,16 +28,28 @@ const route = express.Router();
  *     responses:
  *       201:
  *         description: Usuario creado exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
  *       400:
  *         description: Error en la validación de datos
  *       500:
  *         description: Error del servidor
  */
-route.post("/", crearUsuario);
+route.post("/register", crearUsuario);
+
+/**
+ * @swagger
+ * /usuarios/login:
+ *   post:
+ *     summary: Iniciar sesión
+ *     description: Devuelve un JWT si las credenciales son válidas
+ *     tags:
+ *       - Autenticación
+ *     responses:
+ *       200:
+ *         description: Inicio de sesión correcto
+ *       401:
+ *         description: Credenciales inválidas
+ */
+route.post("/login", login);
 
 /**
  * @swagger
@@ -50,15 +62,12 @@ route.post("/", crearUsuario);
  *     responses:
  *       200:
  *         description: Lista de usuarios obtenida exitosamente
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/User'
  *       500:
  *         description: Error del servidor
  */
-route.get("/", obtenerUsuarios);
+route.get("/", auth, obtenerUsuarios);
+route.get("/:id", auth, obtenerUsuarioPorId);
+route.put("/:id", auth, actualizarUsuario);
+route.delete("/:id", auth, eliminarUsuario);
 
 export default route;
